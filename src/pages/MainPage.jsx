@@ -20,8 +20,8 @@ const MainPage = () => {
         <h2 className="text-green-400 text-2xl text-center">Task Manager</h2>
         <p>
           Type in your tasks first and then click on the "play-like" button to
-          start the timer for that task. <br /> Tip: See what happens if
-          you assign more then three tasks
+          start the timer for that task. <br /> Tip: See what happens if you
+          assign more then three tasks
         </p>
         <TaskInput />
         <TaskListBox />

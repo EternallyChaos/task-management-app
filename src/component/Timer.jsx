@@ -91,7 +91,7 @@ const Timer = () => {
   }, [audioPlaying]);
   return (
     <div>
-      <div className="flex flex-col justify-center my-4 items-center gap-4">
+      <div className="flex flex-col justify-center px-4 my-4 items-center gap-4">
         <div className="min-h-20 w-full p-3 border border-green-500 text-white flex">
           <h2 className="text-md mr-1.5">Focused Time:</h2>
           <p>{taskDuration}m</p>
