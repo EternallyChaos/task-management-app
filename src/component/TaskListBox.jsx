@@ -1,29 +1,37 @@
 import { FiPlay } from "react-icons/fi";
-import { useState, useContext } from "react";
-import { TaskListContext } from "../pages/MainPage";
+import { useEffect, useContext } from "react";
+import { TaskListContext } from "../App";
 import { Link } from "react-router-dom";
+
 const TaskListBox = () => {
   const { taskList, setTaskList } = useContext(TaskListContext);
+
+  
 
   const removeItem = (index) => {
     setTaskList(taskList.filter((_, i) => index !== i));
   };
+  console.log(taskList);
 
   return (
     <div className="w-full rounded text-white flex flex-col gap-2">
       <h3 className="text-lg">Task List</h3>
       {taskList.slice(0, 3).map((taskItem, index) => {
+        const data = {
+          task: taskList[index],
+          index: index,
+        };
         return (
           <div
             key={taskItem}
             className="flex flex-row justify-between items-center border border-green-500 p-2 rounded"
           >
             <div className="flex flex-row items-center gap-1">
-              <Link to={`/timer`} state={{ task: taskItem }}>
+              <Link to={`/timer`} state={{ data: data }}>
                 <FiPlay
                   className="cursor-pointer"
                   size={22}
-                  onClick={() => console.log("a")}
+                  // onClick={() => console.log("a")}
                 />
               </Link>
               <p className={`${false ? "line-through" : ""}`}>{taskItem}</p>

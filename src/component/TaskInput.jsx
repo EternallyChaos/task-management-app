@@ -1,14 +1,28 @@
-import { useState, useContext, useRef } from "react";
-import { TaskListContext } from "../pages/MainPage";
+import { useState, useContext, useRef, useEffect } from "react";
+import { TaskListContext } from "../App";
 
 function TaskInput() {
   const { taskList, setTaskList } = useContext(TaskListContext);
   const [inputData, setInputData] = useState(null);
   const inputRef = useRef(null);
 
+  // taskList &&
+  //   useEffect(() => {
+  //     if (localStorage.getItem("taskList") !== null) {
+  //       setTaskList(JSON.parse(window.localStorage.getItem("taskList")));
+  //     } else {
+  //       return;
+  //     }
+  //   }, []);
+
+  // useEffect(() => {
+  //   window.localStorage.setItem("taskList", taskList);
+  // }, [taskList]);
+
+  // console.log(window.localStorage.getItem("taskList"));
+
   const handleChange = (e) => {
     setInputData(e.target.value);
-    console.log(e.target.value);
   };
 
   const handleSubmit = () => {
