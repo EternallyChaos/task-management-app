@@ -1,5 +1,6 @@
-import TaskInput from "../component/TaskInput";
+import { TaskContextProvider } from "../component/TaskContext";
 import TaskListBox from "../component/TaskListBox";
+import TaskInput from "../component/TaskInput";
 
 const MainPage = () => {
   return (

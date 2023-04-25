@@ -1,7 +1,7 @@
-import { useState, useEffect, useRef, useContext } from "react";
+import { useState, useEffect } from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
+import { useTaskContext } from "./TaskContext";
 import { useLocation } from "react-router-dom";
-import { TaskListContext } from "../App";
 
 const renderTime = ({ remainingTime }) => {
   if (remainingTime === 0) {
@@ -19,15 +19,12 @@ const renderTime = ({ remainingTime }) => {
   );
 };
 const Timer = () => {
-  const { taskListDuration, setTaskListDuration } = useContext(TaskListContext);
-  // console.log("task", taskListDuration);
-
   const location = useLocation();
-  const data = location.state;
+  const taskID = location.state;
 
-  const [inputData, setInputData] = useState(data);
+  const { taskListObject } = useTaskContext();
+  const { dispatch } = useTaskContext();
 
-  console.log(inputData);
   const [rtime, setRTime] = useState();
   const [key, setKey] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -41,6 +38,24 @@ const Timer = () => {
   const durationVariable = 30;
   const [durationVariableSecond, setDurationVariableSecond] = useState(1800);
 
+  const [selectedTask, setSelectedTask] = useState(
+    taskListObject.filter((taskItem) => taskItem.id === taskID)
+  );
+
+  const newUpdateItem = {
+    id: selectedTask[0].id,
+    taskName: selectedTask[0].taskName,
+    taskDuration: taskDuration,
+  };
+
+  const handleUpdateDispatch = () => {
+    dispatch({
+      type: "updateTask",
+      updatedTask: newUpdateItem,
+      updatedTaskId: selectedTask[0].id,
+    });
+  };
+
   const timeStop = () => {
     setIsPlaying(false);
 
@@ -48,18 +63,7 @@ const Timer = () => {
     const rseconds = rtime % 60;
 
     setTaksDuration(taskDuration + (durationVariable - rminutes));
-
-    const nextCounters = taskListDuration.map((c, i) => {
-      console.log("c", c, "i", i);
-      if (i === inputData.data.index) {
-        return c + taskDuration;
-      } else {
-        return c;
-      }
-    });
-
-    console.log(nextCounters);
-    setTaskListDuration(nextCounters);
+    handleUpdateDispatch();
 
     setIsResumeRunning(true);
     audioPlaying && audioPlaying.pause();
@@ -81,7 +85,6 @@ const Timer = () => {
   };
 
   const setMusic = (e) => {
-    console.log(e.target.value);
     audioPlaying && audioPlaying.pause();
     setAudioPlaying(new Audio(e.target.value));
   };
@@ -108,7 +111,7 @@ const Timer = () => {
         </div>
         <div className="min-h-20 w-full px-2 py-2 border border-green-500 text-white flex">
           <h2 className="text-md mr-1.5">Current Task:</h2>
-          <p>{inputData.data.task}</p>
+          <p>{selectedTask[0].taskName}</p>
         </div>
 
         <CountdownCircleTimer

@@ -1,24 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { createContext, useState } from "react";
-
+import { TaskContextProvider } from "./component/TaskContext";
 import Timer from "./component/Timer";
 import MainPage from "./pages/MainPage";
 
-export const TaskListContext = createContext(null);
-
 function App() {
-  const [taskList, setTaskList] = useState([]);
-  const [taskListDuration, setTaskListDuration] = useState([0, 0, 0]);
-
   return (
-    <TaskListContext.Provider
-      value={{
-        taskList,
-        setTaskList,
-        taskListDuration,
-        setTaskListDuration,
-      }}
-    >
+    <TaskContextProvider>
       <BrowserRouter>
         <div className="App">
           <div className="font-poppins text-white">
@@ -29,7 +16,7 @@ function App() {
           </div>
         </div>
       </BrowserRouter>
-    </TaskListContext.Provider>
+    </TaskContextProvider>
   );
 }
 
