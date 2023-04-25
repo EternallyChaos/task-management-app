@@ -12,29 +12,23 @@ const TaskListLi = (props) => {
     });
   };
   return (
-    <li className="flex flex-row justify-between items-center border border-green-500 p-2 rounded">
-      <div className="flex flex-row items-center gap-1">
+    <li className="flex flex-row gap-2 justify-between items-center border border-green-500 p-2 rounded">
+      <div className="flex flex-row justify-between items-center gap-2">
         <Link to={`/timer`} state={taskID}>
-          <FiPlay
-            className="cursor-pointer"
-            size={22}
-            // onClick={() => console.log("a")}
-          />
+          <FiPlay className="cursor-pointer" size={22} />
         </Link>
-        <div className="flex gap-2">
-          <span className={`${false ? "line-through" : ""}`}>
-            Task: {props.taskName}
-          </span>
-          <span className={`${false ? "line-through" : ""}`}>
-            Time Spent: {props.taskDuration}m
-          </span>
-        </div>
+        <span className={`${false ? "line-through" : ""}`}>
+          {props.taskName}
+        </span>
+        <span className={`${false ? "line-through" : ""}`}>
+          Time: {props.taskDuration}m
+        </span>
       </div>
       <button
-        className="bg-gray-700 p-1.5 rounded"
+        className="border border-green-500 py-0.5 px-1.5 rounded"
         onClick={() => handleDeleteDispatch(props.id)}
       >
-        Delete
+        ✕
       </button>
     </li>
   );
